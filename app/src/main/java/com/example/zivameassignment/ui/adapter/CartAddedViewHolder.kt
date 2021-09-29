@@ -14,8 +14,8 @@ import com.squareup.picasso.Picasso
 class CartAddedViewHolder(private val itemBinding: CartItemsBinding) : RecyclerView.ViewHolder(itemBinding.root) {
     fun bind(cartItems: CartData) {
         itemBinding.tvName.text = cartItems.name.toString()
-        itemBinding.tvPrice.text = cartItems.price.toString()
-        itemBinding.tvRating.text = cartItems.rating.toString()
+        itemBinding.tvPrice.text = itemBinding.root.context.getString(R.string.price)+cartItems.price.toString()
+        itemBinding.tvRating.text = itemBinding.root.context.getString(R.string.rating)+cartItems.rating.toString()
         Picasso.get().load(cartItems.image_url).placeholder(R.drawable.ic_healthy_food)
             .error(R.drawable.ic_healthy_food).into(itemBinding.ivRecipeItemImage)
     }

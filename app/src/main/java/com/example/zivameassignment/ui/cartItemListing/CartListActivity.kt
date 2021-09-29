@@ -29,7 +29,14 @@ class CartListActivity : BaseActivity() {
         observe(cartListViewModel.cartLiveData, ::handleCartList)
         observeSnackBarMessages(cartListViewModel.showSnackBar)
         observeToast(cartListViewModel.showToast)
+        observe(cartListViewModel.savedCartItems,::handleSavedList)
+
     }
+
+    private fun handleSavedList(i: Int?) {
+    binding.textNotify.setText(i.toString())
+    }
+
     private fun handleCartList(status: Resource<CartResponse>) {
         when (status) {
             is Resource.Loading -> showLoadingView()

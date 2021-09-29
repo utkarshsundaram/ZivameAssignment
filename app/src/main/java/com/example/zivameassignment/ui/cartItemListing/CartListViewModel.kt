@@ -37,6 +37,9 @@ constructor(private val dataRepositoryRepository: DataRepositorySource
     val cartLiveData: LiveData<Resource<CartResponse>> get() = cartLiveDataPrivate
     lateinit var  cartFlowCollector:FlowCollector<Resource<CartResponse>>
 
+    var savedData:Int=0;
+    var savedCartItems=MutableLiveData<Int>()
+
 
     /**
      * Error handling as UI
@@ -66,6 +69,7 @@ constructor(private val dataRepositoryRepository: DataRepositorySource
     fun saveCartItems(cartData: CartData){
         viewModelScope.launch{
             saveData(cartData)
+            savedCartItems.value=savedData
         }
 
     }
@@ -84,6 +88,7 @@ constructor(private val dataRepositoryRepository: DataRepositorySource
                     price = cartData.price, rating = cartData.rating
                 )
             )
+            savedData=cartDao.getAllCartData().size
         }
     }
 

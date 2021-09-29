@@ -29,14 +29,15 @@ class CheckOutActivity : BaseActivity() {
         binding = ActivityCheckOutBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        cartCheckOutViewModel.clearTheData()
-        binding.button.setOnClickListener(object : View.OnClickListener {
+
+        binding.buttonCheckout.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
                 val intent = Intent(applicationContext, CartListActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         })
+        cartCheckOutViewModel.clearTheData()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
