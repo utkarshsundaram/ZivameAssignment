@@ -21,11 +21,11 @@ constructor(private val serviceGenerator: ServiceGenerator, private val networkC
     override suspend fun requestCartData(): Resource<CartResponse> {
         val cartService = serviceGenerator.createService(CartService::class.java)
         return when (val response = processCall(cartService::fetchCartList)) {
-            is List<*> -> {
-                Resource.Success(data = CartResponse(response as ArrayList<CartData>))
+            is CartResponse-> {
+                Resource.Success(data = response)
             }
             else -> {
-                Resource.DataError(errorCode = response as Int)
+                Resource.DataError(errorCode = 404)
             }
         }
     }

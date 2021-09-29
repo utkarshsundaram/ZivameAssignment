@@ -4,4 +4,5 @@
     <string name="network_error">Network error, could get data,please try again!</string>
     <string name="no_data">No Data</string>
     <string name="checkout">CheckOut</string>
+    <string name="congratulations_your_order_has_been_placed">Congratulations Your order has been placed</string>
 </resources>

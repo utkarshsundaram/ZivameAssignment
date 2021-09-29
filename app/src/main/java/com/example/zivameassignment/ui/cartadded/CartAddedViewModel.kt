@@ -5,13 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.zivameassignment.data.local.Resource
 import com.example.zivameassignment.data.local.database.dao.CartDao
+import com.example.zivameassignment.data.local.database.model.CartAdded
 import com.example.zivameassignment.data.remote.model.CartData
 import com.example.zivameassignment.data.remote.model.CartResponse
 import com.example.zivameassignment.ui.base.BaseViewModel
 import com.example.zivameassignment.utils.SingleEvent
 import com.example.zivameassignment.utils.wrapEspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 /**
@@ -21,7 +24,7 @@ import javax.inject.Inject
 class CartAddedViewModel @Inject constructor(private val cartDao: CartDao) : BaseViewModel()
 {
     val cartLiveDataPrivate = MutableLiveData<Resource<CartResponse>>()
-    lateinit var  cartData : ArrayList<CartData>
+     var cartData =ArrayList<CartData>()
     val cartLiveData: LiveData<Resource<CartResponse>> get() = cartLiveDataPrivate
 
     private val showToastPrivate = MutableLiveData<SingleEvent<Any>>()
@@ -30,15 +33,19 @@ class CartAddedViewModel @Inject constructor(private val cartDao: CartDao) : Bas
         cartLiveDataPrivate.value = Resource.Loading()
         viewModelScope.launch {
             wrapEspressoIdlingResource {
-                for(i in cartDao.getAllCartData()){
-                    var data= i.rating?.let { CartData(name = i.name.toString(),price = i.price,image_url = i.image,rating = it) }
-                    data?.let { cartData.add(it) }
-                }
+                getCartData()
                 cartLiveDataPrivate.value=Resource.Success(CartResponse(cartData))
             }
         }
     }
-
+    private  suspend fun getCartData() {
+        withContext(Dispatchers.IO) {
+            for(i in cartDao.getAllCartData()){
+                var data= i.rating?.let { CartData(name = i.name.toString(),price = i.price,image_url = i.image,rating = it) }
+                data?.let { cartData.add(it) }
+            }
+        }
+    }
     fun showToastMessage(errorCode: Int) {
         val error = errorManager.getError(errorCode)
         showToastPrivate.value = SingleEvent(error.description)

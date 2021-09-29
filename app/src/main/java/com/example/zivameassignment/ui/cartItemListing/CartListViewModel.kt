@@ -13,11 +13,14 @@ import com.example.zivameassignment.ui.base.BaseViewModel
 import com.example.zivameassignment.utils.SingleEvent
 import com.example.zivameassignment.utils.wrapEspressoIdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.withContext
+
 /**
  * Created by Utkarsh Sundaram on 28-09-2021.
  */
@@ -61,8 +64,27 @@ constructor(private val dataRepositoryRepository: DataRepositorySource
     }
 
     fun saveCartItems(cartData: CartData){
-       cartDao.insertCartItems(cartItems = CartAdded(name = cartData.name.toString(),image = cartData.image_url,
-           price=cartData.price,rating = cartData.rating))
+        viewModelScope.launch{
+            saveData(cartData)
+        }
+
+    }
+
+    private  suspend fun saveData(cartData: CartData) {
+        withContext(Dispatchers.IO) {
+            for(i in cartDao.getAllCartData()){
+                if(cartData.name.equals(i.name)){
+                    return@withContext
+                }
+            }
+            val rnds = (0..100000000).random()
+            cartDao.insertCartItems(
+                cartItems = CartAdded(id=rnds,
+                    name = cartData.name.toString(), image = cartData.image_url,
+                    price = cartData.price, rating = cartData.rating
+                )
+            )
+        }
     }
 
     fun showToastMessage(errorCode: Int) {

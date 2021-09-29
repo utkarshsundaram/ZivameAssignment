@@ -1,6 +1,7 @@
 package com.example.zivameassignment.data.remote.service
 
 import com.example.zivameassignment.data.remote.model.CartData
+import com.example.zivameassignment.data.remote.model.CartResponse
 import retrofit2.Response
 import retrofit2.http.GET
 
@@ -9,6 +10,6 @@ import retrofit2.http.GET
  */
 interface CartService {
 @GET("db")
-suspend fun fetchCartList(): Response<List<CartData>>
+suspend fun fetchCartList(): Response<CartResponse>
 
 }

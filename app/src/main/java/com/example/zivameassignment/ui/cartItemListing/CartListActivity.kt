@@ -1,5 +1,7 @@
 package com.example.zivameassignment.ui.base.cartItemListing
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -11,6 +13,7 @@ import com.example.zivameassignment.databinding.ActivityCartlistBinding
 import com.example.zivameassignment.ui.adapter.CartListAdapter
 import com.example.zivameassignment.ui.base.BaseActivity
 import com.example.zivameassignment.ui.cartItemListing.CartListViewModel
+import com.example.zivameassignment.ui.cartadded.CartAddedActivity
 import com.example.zivameassignment.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,8 +42,8 @@ class CartListActivity : BaseActivity() {
     }
 
     private fun bindListData(cartResponse: CartResponse) {
-        if (!(cartResponse.cartData.isNullOrEmpty())) {
-            cartListAdapter = CartListAdapter(cartListViewModel, cartData = cartResponse.cartData)
+        if (!(cartResponse.products.isNullOrEmpty())) {
+            cartListAdapter = CartListAdapter(cartListViewModel, cartData = cartResponse.products)
             binding.recyclerView.adapter = cartListAdapter
             showDataView(true)
         } else {
@@ -75,11 +78,17 @@ class CartListActivity : BaseActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.title = "CartItems"
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.setHasFixedSize(true)
         cartListViewModel.getCartItems()
+        binding.cartButtonIV.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
+                val intent = Intent(applicationContext, CartAddedActivity::class.java)
+               startActivity(intent)
+                finish()
+            }
+        })
     }
 
 

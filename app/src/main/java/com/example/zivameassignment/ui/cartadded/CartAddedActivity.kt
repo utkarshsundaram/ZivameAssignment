@@ -1,23 +1,24 @@
 package com.example.zivameassignment.ui.cartadded
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.zivameassignment.R
 import com.example.zivameassignment.data.local.Resource
-import com.example.zivameassignment.data.local.database.model.CartAdded
 import com.example.zivameassignment.data.remote.model.CartData
 import com.example.zivameassignment.data.remote.model.CartResponse
 import com.example.zivameassignment.databinding.ActivityCartAddedBinding
-import com.example.zivameassignment.databinding.ActivityCartlistBinding
 import com.example.zivameassignment.ui.adapter.CartAddedAdapter
-import com.example.zivameassignment.ui.adapter.CartListAdapter
 import com.example.zivameassignment.ui.base.BaseActivity
-import com.example.zivameassignment.ui.cartItemListing.CartListViewModel
+import com.example.zivameassignment.ui.checkout.CheckOutActivity
 import com.example.zivameassignment.utils.*
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CartAddedActivity : BaseActivity() {
     private lateinit var binding: ActivityCartAddedBinding
 
@@ -30,7 +31,8 @@ class CartAddedActivity : BaseActivity() {
     private fun handleCartList(status: Resource<CartResponse>) {
         when (status) {
             is Resource.Loading -> showLoadingView()
-            is Resource.Success -> status.data?.let { bindListData(cartResponse = it.cartData) }
+            is Resource.Success -> status.data?.let { showDataView(true)
+                bindListData(cartResponse = it.products) }
             is Resource.DataError -> {
                 showDataView(false)
                 status.errorCode?.let { cartListViewModel.showToastMessage(it) }
@@ -64,10 +66,17 @@ class CartAddedActivity : BaseActivity() {
         binding = ActivityCartAddedBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+        val layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.setHasFixedSize(true)
+        cartListViewModel.getCartAddedFromDb()
+        binding.checkout.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
+                val intent = Intent(applicationContext, CheckOutActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cart_added)
-    }
 }
