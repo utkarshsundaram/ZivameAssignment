@@ -1,4 +1,4 @@
-package com.example.zivameassignment.data.local.moshiFactories;
+package com.example.zivameassignment.data.moshiFactories;
 
 import static com.squareup.moshi.internal.Util.generatedAdapter;
 

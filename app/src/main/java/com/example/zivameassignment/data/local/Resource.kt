@@ -1,4 +1,4 @@
-package com.task.data
+package com.example.zivameassignment.data.local
 
 // A generic class that contains data and status about loading this data.
 sealed class Resource<T>(

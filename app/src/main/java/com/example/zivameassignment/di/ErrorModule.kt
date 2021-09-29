@@ -1,9 +1,10 @@
-package com.task.di
+package com.example.zivameassignment.di
 
-import com.task.data.error.mapper.ErrorMapper
-import com.task.data.error.mapper.ErrorMapperSource
-import com.task.usecase.errors.ErrorUseCase
-import com.task.usecase.errors.ErrorManager
+import com.example.zivameassignment.data.remote.error.mapper.ErrorMapper
+import com.example.zivameassignment.data.remote.error.mapper.ErrorMapperSource
+
+import com.example.zivameassignment.errors.ErrorUseCase
+import com.example.zivameassignment.errors.ErrorManager
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

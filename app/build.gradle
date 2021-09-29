@@ -17,7 +17,14 @@ android {
         targetSdk 30
         versionCode 1
         versionName "1.0"
-
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation":"$projectDir/schemas".toString(),
+                        "room.incremental":"true",
+                        "room.expandProjection":"true"]
+            }
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
@@ -84,6 +91,7 @@ dependencies {
     implementation "androidx.annotation:annotation:$annotationVersion"
     implementation "com.squareup.picasso:picasso:$picassoVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$livedata_ktx"
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidXJunitVersion"
     /**-------------------testing libs------------------------------------------**/
     //UI Testing , AndroidJUnitRunner and JUnit Rules &Espresso dependencies
@@ -115,6 +123,9 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt_version"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation 'com.google.code.gson:gson:2.8.7'
 }
 kapt {
     correctErrorTypes true

@@ -1,8 +1,9 @@
 
-package com.task.di
+package com.example.zivameassignment.di
 
-import com.task.data.DataRepository
-import com.task.data.DataRepositorySource
+
+import com.example.zivameassignment.data.remote.repository.DataRepository
+import com.example.zivameassignment.data.remote.repository.DataRepositorySource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

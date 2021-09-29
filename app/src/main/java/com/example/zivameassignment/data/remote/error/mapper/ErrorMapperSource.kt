@@ -1,4 +1,4 @@
-package com.task.data.error.mapper
+package com.example.zivameassignment.data.remote.error.mapper
 
 interface ErrorMapperSource {
     fun getErrorString(errorId: Int): String

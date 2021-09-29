@@ -1,6 +1,6 @@
-package com.task.usecase.errors
+package com.example.zivameassignment.errors
 
-import com.task.data.error.Error
+import com.example.zivameassignment.data.remote.error.mapper.Error
 
 interface ErrorUseCase {
     fun getError(errorCode: Int): Error

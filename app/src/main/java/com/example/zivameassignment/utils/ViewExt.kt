@@ -1,4 +1,4 @@
-package com.task.utils
+package com.example.zivameassignment.utils
 
 import android.app.Service
 import android.text.Editable
@@ -16,10 +16,10 @@ import androidx.core.widget.TextViewCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.example.zivameassignment.R
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import com.task.App
-import com.task.R
+
 
 fun View.showKeyboard() {
     (this.context.getSystemService(Service.INPUT_METHOD_SERVICE) as? InputMethodManager)
@@ -66,9 +66,9 @@ fun View.showSnackbar(snackbarText: String, timeLength: Int) {
  * Triggers a snackbar message when the value contained by snackbarTaskMessageLiveEvent is modified.
  */
 fun View.setupSnackbar(
-        lifecycleOwner: LifecycleOwner,
-        snackbarEvent: LiveData<SingleEvent<Any>>,
-        timeLength: Int) {
+    lifecycleOwner: LifecycleOwner,
+    snackbarEvent: LiveData<SingleEvent<Any>>,
+    timeLength: Int) {
     snackbarEvent.observe(lifecycleOwner, Observer { event ->
         event.getContentIfNotHandled()?.let {
             when (it) {
@@ -89,9 +89,9 @@ fun View.setupSnackbar(
 }
 
 fun View.showToast(
-        lifecycleOwner: LifecycleOwner,
-        ToastEvent: LiveData<SingleEvent<Any>>,
-        timeLength: Int
+    lifecycleOwner: LifecycleOwner,
+    ToastEvent: LiveData<SingleEvent<Any>>,
+    timeLength: Int
 ) {
 
     ToastEvent.observe(lifecycleOwner, Observer { event ->

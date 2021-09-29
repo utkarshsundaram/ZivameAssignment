@@ -1,7 +1,7 @@
 package com.example.zivameassignment.ui.base
 
 import androidx.lifecycle.ViewModel
-import java.util.logging.ErrorManager
+import com.example.zivameassignment.errors.ErrorManager
 import javax.inject.Inject
 
 /**

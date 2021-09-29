@@ -1,4 +1,4 @@
-package com.task.data.remote.moshiFactories
+package com.example.zivameassignment.data.moshiFactories
 
 import com.squareup.moshi.*
 import com.squareup.moshi.internal.Util

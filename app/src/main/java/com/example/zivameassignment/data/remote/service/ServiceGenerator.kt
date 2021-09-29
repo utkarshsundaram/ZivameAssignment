@@ -1,4 +1,4 @@
-package com.example.zivameassignment.data.local.remote
+package com.example.zivameassignment.data.remote.service
 
 import androidx.viewbinding.BuildConfig
 import com.example.zivameassignment.data.moshiFactories.MyKotlinJsonAdapterFactory

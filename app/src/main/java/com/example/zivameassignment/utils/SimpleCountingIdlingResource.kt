@@ -1,4 +1,4 @@
-package com.task.utils
+package com.example.zivameassignment.utils
 import androidx.test.espresso.IdlingResource
 
 import java.util.concurrent.atomic.AtomicInteger

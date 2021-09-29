@@ -1,11 +1,10 @@
-package com.task.usecase.errors
+package com.example.zivameassignment.errors
 
-import com.task.data.error.Error
-import com.task.data.error.mapper.ErrorMapper
+import com.example.zivameassignment.data.remote.error.mapper.ErrorMapper
 import javax.inject.Inject
-
+import com.example.zivameassignment.data.remote.error.mapper.Error
 /**
- * Created by AhmedEltaher
+ * Created by Utkarsh Sundaram
  */
 
 class ErrorManager @Inject constructor(private val errorMapper: ErrorMapper) : ErrorUseCase {

@@ -2,28 +2,18 @@ package com.task.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.task.FAVOURITES_KEY
-import com.task.SHARED_PREFERENCES_FILE_NAME
-import com.task.data.Resource
-import com.task.data.dto.login.LoginRequest
-import com.task.data.dto.login.LoginResponse
-import com.task.data.error.PASS_WORD_ERROR
+import com.example.zivameassignment.data.local.Resource
+import com.example.zivameassignment.utils.FAVOURITES_KEY
+import com.example.zivameassignment.utils.SHARED_PREFERENCES_FILE_NAME
+
+
 import javax.inject.Inject
 
-/**
- * Created by AhmedEltaher
- */
+
 
 class LocalData @Inject constructor(val context: Context) {
 
-    fun doLogin(loginRequest: LoginRequest): Resource<LoginResponse> {
-        if (loginRequest == LoginRequest("ahmed@ahmed.ahmed", "ahmed")) {
-            return Resource.Success(LoginResponse("123", "Ahmed", "Mahmoud",
-                    "FrunkfurterAlle", "77", "12000", "Berlin",
-                    "Germany", "ahmed@ahmed.ahmed"))
-        }
-        return Resource.DataError(PASS_WORD_ERROR)
-    }
+
 
     fun getCachedFavourites(): Resource<Set<String>> {
         val sharedPref = context.getSharedPreferences(SHARED_PREFERENCES_FILE_NAME, 0)

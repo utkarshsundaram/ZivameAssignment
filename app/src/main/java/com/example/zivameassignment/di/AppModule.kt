@@ -1,10 +1,13 @@
 package com.task.di
 
 import android.content.Context
-import com.task.App
+import com.example.zivameassignment.data.remote.error.mapper.ErrorMapper
+import com.example.zivameassignment.utils.Network
+
+import com.example.zivameassignment.utils.NetworkConnectivity
+
 import com.task.data.local.LocalData
-import com.task.utils.Network
-import com.task.utils.NetworkConnectivity
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,10 +31,11 @@ class AppModule {
     fun provideCoroutineContext(): CoroutineContext {
         return Dispatchers.IO
     }
-
     @Provides
     @Singleton
     fun provideNetworkConnectivity(@ApplicationContext context: Context): NetworkConnectivity {
         return Network(context)
     }
+
+
 }
